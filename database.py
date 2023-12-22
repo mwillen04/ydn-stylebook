@@ -56,3 +56,37 @@ def get_stylebook_section(letter: str) -> list:
             """
 
     return execute_query(query, [f"{letter}%", f"“{letter}%"])
+
+#-----------------------------------------------------------------------
+
+def term_search(keyword: str) -> list:
+
+    query = """
+            SELECT term, definition FROM dictionary 
+            WHERE term LIKE ?
+            """
+
+    return execute_query(query, [f"%{keyword}%"])
+
+#-----------------------------------------------------------------------
+
+def definition_search(keyword: str) -> list:
+
+    query = """
+            SELECT term, definition FROM dictionary 
+            WHERE definition LIKE ?
+            """
+
+    return execute_query(query, [f"%{keyword}%"])
+
+#-----------------------------------------------------------------------
+
+def keyword_search(keyword: str) -> list:
+
+    query = """
+            SELECT term, definition FROM dictionary 
+            WHERE term LIKE ? 
+            OR definition LIKE ?
+            """
+
+    return execute_query(query, [f"%{keyword}%", f"%{keyword}%"])

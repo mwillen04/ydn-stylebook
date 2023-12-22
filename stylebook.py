@@ -1,7 +1,7 @@
 """Author: Michael Willen"""
 
-from flask import Flask, make_response, render_template
-from database import get_stylebook_section
+from flask import Flask, request, make_response, render_template
+from database import get_stylebook_section, term_search, definition_search, keyword_search
 from string import ascii_uppercase
 
 #-----------------------------------------------------------------------
@@ -16,6 +16,21 @@ def index():
 
     html = render_template('index.html')
     response = make_response(html)
+    return response
+
+#-----------------------------------------------------------------------
+
+@app.route('/search', methods=['GET'])
+def search():
+
+    keyword = request.args.get('q')
+
+    if keyword == '':
+        return make_response('')
+
+    html = render_template('components/search.html', results=keyword_search(keyword))
+    response = make_response(html)
+
     return response
 
 #-----------------------------------------------------------------------

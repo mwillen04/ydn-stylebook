@@ -202,7 +202,7 @@ td.term {
     border: none;
     font-size: 17px;
     font-family: 'Times New Roman', Times, serif;
-    border-radius: 25px 0px 0px 25px;
+    border-radius: 25px;
 }
 
 .search button {

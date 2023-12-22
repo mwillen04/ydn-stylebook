@@ -1,27 +1,20 @@
 {% include 'components/metadata.html' %}
 
 <body>
-    <header id="top">
-        <a href="https://yaledailynews.com/" target="_blank"><img src="static/images/nameplate_recolor2.png" alt="The Yale Daily News" style="float:left;padding-top:5px;padding-left:15px;max-width:10%;"></a>
+    <script src="static/scripts/index.js"></script>
 
-        <nav>
-            <a href="/" class="pages current_page">Home</a>
-            <a href="/top10" class="pages">Top 10 Rules</a>
-            <a href="/stylebook" class="pages">Stylebook</a>
-            <a href="/edits" class="pages">Edits</a>
-            <a href="https://www.apstylebook.com/" class="pages" target="_blank">AP Style</a>
-            <a href="/staff" class="pages">Copy Staff</a>
-        </nav>
-    </header>
-
-    <br>
-    <h1>The Yale Daily News - Copy Desk</h1>
+    {% include 'components/header.html' %}
 
     <main>
-        <form class="search" action="">
-            <input type="text" name="keyword" class="searchbar" placeholder="Search the Stylebook">
-            <button type="submit"><i class="fa fa-search"></i></button>
+
+        <br>
+        <h1>The Yale Daily News - Copy Desk</h1>
+
+        <form class="search" action="search" method="get" target="_blank">
+            <input type="text" id="keyword" name="q" class="searchbar" placeholder="Search the Stylebook">
         </form>
+
+        <div id="results"></div>
 
     </main>
 
