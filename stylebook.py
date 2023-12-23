@@ -3,7 +3,7 @@
 from flask import Flask, request, make_response, render_template
 from database import get_stylebook_section, term_search, definition_search, keyword_search
 from string import ascii_uppercase
-from helper import standardize
+from helper import standardize, highlight
 
 #-----------------------------------------------------------------------
 
@@ -37,9 +37,11 @@ def search():
     
     elif (searchtype == "entry"):
         results = definition_search(keyword)
+        results = highlight(results, keyword)
     
     else:
         results = keyword_search(keyword)
+        results = highlight(results, keyword)
 
     html = render_template('components/search.html', results=results)
     response = make_response(html)

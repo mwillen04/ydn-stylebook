@@ -230,3 +230,9 @@ td.term {
     border-radius: 0px;
     margin-top: 0px;
 }
+
+.highlight {
+    background-color: #F5D275;
+    border-radius: 5px;
+    color: black;
+}
