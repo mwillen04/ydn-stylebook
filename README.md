@@ -16,3 +16,4 @@ This website is designed to host the copy stylebook of the Yale Daily News. The 
 * CAS Integration => Login, Profile, and Admin features
 * On-site editing of the stylebook => both direct revision and a suggestion list
 * Option to export stylebook data
+* Web hosting
