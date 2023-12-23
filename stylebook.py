@@ -24,11 +24,21 @@ def index():
 def search():
 
     keyword = request.args.get('q')
+    searchtype = request.args.get('t')
 
     if keyword == '':
         return make_response('')
+    
+    if (searchtype == "term"):
+        results = term_search(keyword)
+    
+    elif (searchtype == "entry"):
+        results = definition_search(keyword)
+    
+    else:
+        results = keyword_search(keyword)
 
-    html = render_template('components/search.html', results=keyword_search(keyword))
+    html = render_template('components/search.html', results=results)
     response = make_response(html)
 
     return response

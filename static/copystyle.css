@@ -194,7 +194,7 @@ td.term {
 
 .search {
     text-align: center;
-    margin: 100px;
+    margin: 40px;
 }
 
 .search input {
@@ -202,20 +202,31 @@ td.term {
     border: none;
     font-size: 17px;
     font-family: 'Times New Roman', Times, serif;
-    border-radius: 25px;
 }
 
-.search button {
+.search select {
     padding: 13px 16px 13px 16px;
     margin: 0px;
     background: #ddd;
     font-size: 17px;
+    font-family: 'Times New Roman', Times, serif;
     color: #111111;
     border: none;
+    border-right: 16px solid transparent;
     cursor: pointer;   
-    border-radius: 0px 25px 25px 0px; 
   }
   
-.search button:hover {
+.search select:hover {
     background: #ccc;
   }
+
+.search option {
+    background-color: white;
+    /* color: #757575; */
+}
+
+.search option:hover {
+    background-color: lightgray;
+    border-radius: 0px;
+    margin-top: 0px;
+}

@@ -8,10 +8,19 @@
     <main>
 
         <br>
-        <h1>The Yale Daily News - Copy Desk</h1>
+        <h1>STYLEBOOK OF THE YALE DAILY NEWS</h1>
 
         <form class="search" action="search" method="get" target="_blank">
-            <input type="text" id="keyword" name="q" class="searchbar" placeholder="Search the Stylebook">
+
+            <select name="t" id="searchtype">
+                <div class="dropdown">
+                    <option value="keyword">Keyword</option>
+                    <option value="term">Term</option>
+                    <option value="entry">Entry</option>
+                </div>
+            </select>
+
+            <input type="text" id="keyword" name="q" class="searchbar" placeholder="Search the Stylebook" autocomplete="off">
         </form>
 
         <div id="results"></div>
