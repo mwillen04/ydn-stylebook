@@ -3,7 +3,7 @@
 from flask import Flask, request, make_response, render_template
 from database import get_stylebook_section, term_search, definition_search, keyword_search
 from string import ascii_uppercase
-from helper import standardize, highlight
+from helper import standardize, highlight, reroute
 
 #-----------------------------------------------------------------------
 
@@ -26,22 +26,38 @@ def search():
 
     keyword = request.args.get('q')
     searchtype = request.args.get('t')
+    full = int(request.args.get('f'))
 
     if keyword == '':
         return make_response('')
+
+    # account for differing quotation marks
     
     keyword = standardize(keyword)
+
+    # check whether or not to match full word
+
+    if not full:
+        keyword_s = f"%{keyword}%"
+    else:
+        keyword_s = keyword
+
+    # determine which type of search is being done, and search
     
     if (searchtype == "term"):
-        results = term_search(keyword)
+        results = term_search(keyword_s)
     
     elif (searchtype == "entry"):
-        results = definition_search(keyword)
+        results = definition_search(keyword_s)
         results = highlight(results, keyword)
     
     else:
-        results = keyword_search(keyword)
+        results = keyword_search(keyword_s)
         results = highlight(results, keyword)
+
+    # reroute links to the stylebook page
+
+    results = reroute(results)
 
     html = render_template('components/search.html', results=results)
     response = make_response(html)

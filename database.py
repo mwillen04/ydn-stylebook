@@ -66,7 +66,7 @@ def term_search(keyword: str) -> list:
             WHERE term LIKE ?
             """
 
-    return execute_query(query, [f"%{keyword}%"])
+    return execute_query(query, [keyword])
 
 #-----------------------------------------------------------------------
 
@@ -77,7 +77,7 @@ def definition_search(keyword: str) -> list:
             WHERE definition LIKE ?
             """
 
-    return execute_query(query, [f"%{keyword}%"])
+    return execute_query(query, [keyword])
 
 #-----------------------------------------------------------------------
 
@@ -89,4 +89,4 @@ def keyword_search(keyword: str) -> list:
             OR definition LIKE ?
             """
 
-    return execute_query(query, [f"%{keyword}%", f"%{keyword}%"])
+    return execute_query(query, [keyword, keyword])

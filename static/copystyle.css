@@ -1,3 +1,13 @@
+html::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 body {
     background-color: #111111;
     color: lightgray;
@@ -197,7 +207,7 @@ td.term {
     margin: 40px;
 }
 
-.search input {
+.search input[type=text] {
     padding: 13px 80px 13px 20px;
     border: none;
     font-size: 17px;
@@ -216,7 +226,7 @@ td.term {
     cursor: pointer;   
   }
   
-.search select:hover {
+.search select:hover, .search .check:hover {
     background: #ccc;
   }
 
@@ -234,5 +244,35 @@ td.term {
 .highlight {
     background-color: #F5D275;
     border-radius: 5px;
+    color: black;
+}
+
+.search input[type=checkbox] {
+    visibility: hidden;
+    position: absolute;
+  }
+
+.search .check {
+    display: inline;
+    padding: 13px 16px 13px 16px;
+    background: #ddd;
+    font-size: 17px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #111111;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.search .check label {
+    color: #757575;
+    padding: 13px 16px;
+    margin: -13px -16px -13px -16px;
+    /* transition: all .5s ease; */
+    cursor: pointer;
+    width: 100%;
+}
+
+.search .check input[type=checkbox]:checked + label {
     color: black;
 }

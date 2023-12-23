@@ -4,6 +4,8 @@ Author: Michael Willen"""
 
 import re
 
+#-----------------------------------------------------------------------
+
 def standardize(string: str) -> str:
     """convert straight quotes to curly ones"""
     string = re.sub(r'\b"',r'”',string)   # closing double on word    
@@ -19,6 +21,8 @@ def standardize(string: str) -> str:
     # FIXME: what about single and double quotes not next to word or punctuation? Pairs?
 
     return(string)
+
+#-----------------------------------------------------------------------
 
 def highlight(results: list, keyword: str) -> list:
     """Adds a marker to the entries to highlight the searched word"""
@@ -52,5 +56,18 @@ def highlight(results: list, keyword: str) -> list:
 
         # add remaining part of entry
         results[k][1] = new_str + entry
+
+    return results
+
+#-----------------------------------------------------------------------
+
+def reroute(results: list) -> list:
+    """changes search result links to route to the stylebook"""
+
+    for k in range (len(results)):
+
+        results[k] = list(results[k])
+
+        results[k][1] = results[k][1].replace('#', 'stylebook#')
 
     return results

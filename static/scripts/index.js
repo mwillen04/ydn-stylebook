@@ -10,7 +10,9 @@ function getResults() {
 
     let keyword = $('#keyword').val();
     let searchtype = $('#searchtype').val();
-    let url = '/search?t=' + encodeURIComponent(searchtype) + '&q=' + encodeURIComponent(keyword);
+    let full = + $('#full').is(':checked');
+
+    let url = '/search?t=' + encodeURIComponent(searchtype) + '&f=' + encodeURIComponent(full) + '&q=' + encodeURIComponent(keyword);
 
     console.log(url);
 
@@ -31,6 +33,7 @@ function setup() {
     $('#index').addClass('current_page');
     $('#keyword').on('input', getResults);
     $('#searchtype').on('input', getResults);
+    $('#full').on('input', getResults);
 }
 
 $('document').ready(setup);
