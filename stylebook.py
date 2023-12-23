@@ -3,6 +3,7 @@
 from flask import Flask, request, make_response, render_template
 from database import get_stylebook_section, term_search, definition_search, keyword_search
 from string import ascii_uppercase
+from helper import standardize
 
 #-----------------------------------------------------------------------
 
@@ -28,6 +29,8 @@ def search():
 
     if keyword == '':
         return make_response('')
+    
+    keyword = standardize(keyword)
     
     if (searchtype == "term"):
         results = term_search(keyword)
