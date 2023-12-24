@@ -11,7 +11,7 @@ DATABASE_URL = 'stylebook.sqlite'
 
 #-----------------------------------------------------------------------
 
-def execute_query(query: str, args: dict = None) -> list:
+def execute_query(query: str, args: dict = {}) -> list:
     """
     Params:
     * `query`: SQL query to execute
@@ -90,3 +90,14 @@ def keyword_search(keyword: str) -> list:
             """
 
     return execute_query(query, [keyword, keyword])
+
+#-----------------------------------------------------------------------
+
+def get_editors() -> list:
+
+    query = """
+            SELECT first_name || ' ' || last_name as name FROM editors 
+            ORDER BY year, name
+            """
+    
+    return execute_query(query)

@@ -1,0 +1,20 @@
+{% include 'components/metadata.html' %}
+
+<body>
+    {% include 'components/header.html' %}
+
+    <br>
+    <h1>Copy Desk Editors</h1>
+
+    <main class="profiles">
+
+        {% for editor in editors %}
+        
+            {% include 'components/profile.html' %}
+
+        {% endfor %}
+
+    </main>
+
+    {% include 'components/footer.html' %}
+</body>

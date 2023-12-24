@@ -1,7 +1,7 @@
 """Author: Michael Willen"""
 
 from flask import Flask, request, make_response, render_template
-from database import get_stylebook_section, term_search, definition_search, keyword_search
+from database import get_stylebook_section, term_search, definition_search, keyword_search, get_editors
 from string import ascii_uppercase
 from helper import standardize, highlight, reroute
 
@@ -76,5 +76,18 @@ def stylebook():
         sections.append(get_stylebook_section(letter))
     
     html = render_template('stylebook.html', dictionary = dict(zip(alphabet, sections)))
+    response = make_response(html)
+    return response
+
+#-----------------------------------------------------------------------
+
+@app.route('/staff', methods=['GET'])
+def staff():
+    
+    editors = []
+    for row in get_editors(): editors.extend(row)
+    print(editors)
+    
+    html = render_template('staff.html', editors = editors)
     response = make_response(html)
     return response
