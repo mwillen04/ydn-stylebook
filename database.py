@@ -2,102 +2,109 @@
 
 Author: Michael Willen"""
 
-from contextlib import closing
-from sqlite3 import connect
+from sqlalchemy import Column, Integer, String
+from sqlalchemy import create_engine, select, collate, or_, text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import sessionmaker
 from sys import stderr
 import sys
 
-DATABASE_URL = 'stylebook.sqlite'
+#-----------------------------------------------------------------------
+
+DATABASE_URL = 'sqlite:///stylebook.sqlite'
+Base = declarative_base()
+
+Engine = create_engine(DATABASE_URL, echo=True)
+Session = sessionmaker(bind=Engine)
 
 #-----------------------------------------------------------------------
 
-def execute_query(query: str, args: dict = {}) -> list:
+class Entry (Base):
+
+    __tablename__ = 'dictionary'
+    term =          Column('term', String, primary_key=True)
+    definition =    Column('definition', String, nullable=False)
+
+class Editor (Base):
+
+    __tablename__ = 'editors'
+    netid =         Column('netID', String, primary_key=True)
+    last_name =     Column('last_name', String, nullable=False)
+    first_name =    Column('first_name', String, nullable=False)
+    year =          Column('year', Integer, nullable=False)
+
+#-----------------------------------------------------------------------
+
+def execute_query(query) -> list:
     """
     Params:
     * `query`: SQL query to execute
-    * `args`: arguments to add to query
 
     Executes query provided in `query` and returns resulting table"""
 
     try:
-        query = str(query)
-        try:
-            with connect(DATABASE_URL) as conn:
-                with closing(conn.cursor()) as cursor:
+        with Session() as session:
+            return session.execute(query).fetchall()
 
-                    cursor.execute(query, args)
-                    tabl = cursor.fetchall()
-
-            return tabl
-
-        except FileNotFoundError:
-            print("Error: could not access database", file=stderr)
-            sys.exit(1)
-
-    except TypeError:
-        print("Error: value must be a string.")
+    except SQLAlchemyError as ex:
+        print(ex, file=stderr)
         sys.exit(1)
 
 #-----------------------------------------------------------------------
 
 def get_stylebook() -> list:
 
-    query = "SELECT term, definition FROM dictionary"
+    query = select(Entry.term, Entry.definition).order_by(collate(Entry.term, 'NOCASE'))
     return execute_query(query)
 
 #-----------------------------------------------------------------------
 
 def get_stylebook_section(letter: str) -> list:
 
-    query = """
-            SELECT term, definition FROM dictionary 
-            WHERE term LIKE ? 
-            OR term LIKE ?
-            """
+    args = [f"{letter}%", f"-{letter}%", f"“{letter}%"]
 
-    return execute_query(query, [f"{letter}%", f"“{letter}%"])
+    query = (select(Entry.term, Entry.definition)
+            .where(or_(*[Entry.term.like(keyword) for keyword in args]))
+            .order_by(collate(Entry.term, 'NOCASE')))
+
+    return execute_query(query)
 
 #-----------------------------------------------------------------------
 
 def term_search(keyword: str) -> list:
 
-    query = """
-            SELECT term, definition FROM dictionary 
-            WHERE term LIKE ?
-            """
+    query = (select(Entry.term, Entry.definition)
+             .where(Entry.term.like(f"%{keyword}%"))
+             .order_by(collate(Entry.term, 'NOCASE')))
 
-    return execute_query(query, [keyword])
+    return execute_query(query)
 
 #-----------------------------------------------------------------------
 
 def definition_search(keyword: str) -> list:
 
-    query = """
-            SELECT term, definition FROM dictionary 
-            WHERE definition LIKE ?
-            """
+    query = (select(Entry.term, Entry.definition)
+             .where(Entry.definition.like(f"%{keyword}%"))
+             .order_by(collate(Entry.term, 'NOCASE')))
 
-    return execute_query(query, [keyword])
+    return execute_query(query)
 
 #-----------------------------------------------------------------------
 
 def keyword_search(keyword: str) -> list:
 
-    query = """
-            SELECT term, definition FROM dictionary 
-            WHERE term LIKE ? 
-            OR definition LIKE ?
-            """
+    query = (select(Entry.term, Entry.definition)
+             .where(or_(Entry.term.like(f"%{keyword}%"), Entry.definition.like(f"%{keyword}%")))
+             .order_by(collate(Entry.term, 'NOCASE')))
 
-    return execute_query(query, [keyword, keyword])
+    return execute_query(query)
 
 #-----------------------------------------------------------------------
 
 def get_editors() -> list:
 
-    query = """
-            SELECT first_name || ' ' || last_name as name FROM editors 
-            ORDER BY year, name
-            """
+    query = (select((Editor.first_name + " " + Editor.last_name).label("name"))
+            .order_by(Editor.year, collate(text('name'), 'NOCASE')))
     
     return execute_query(query)

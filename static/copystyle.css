@@ -8,6 +8,14 @@ html {
   scrollbar-width: none;  /* Firefox */
 }
 
+/*
+@media print {
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
+} */
+
 body {
     background-color: #111111;
     color: lightgray;

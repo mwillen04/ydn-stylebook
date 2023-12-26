@@ -35,25 +35,22 @@ def search():
     
     keyword = standardize(keyword)
 
-    # check whether or not to match full word
-
-    if not full:
-        keyword_s = f"%{keyword}%"
-    else:
-        keyword_s = keyword
-
     # determine which type of search is being done, and search
     
     if (searchtype == "term"):
-        results = term_search(keyword_s)
+        results = term_search(keyword)
     
     elif (searchtype == "entry"):
-        results = definition_search(keyword_s)
+        results = definition_search(keyword)
         results = highlight(results, keyword)
     
     else:
-        results = keyword_search(keyword_s)
+        results = keyword_search(keyword)
         results = highlight(results, keyword)
+
+    # remove results found in HTML tags (and non-full words if full == 1)
+        
+    # results = clean_results(results, full)
 
     # reroute links to the stylebook page
 
@@ -70,7 +67,7 @@ def search():
 def stylebook():
 
     alphabet = tuple(ascii_uppercase)
-    
+
     sections = []
     for letter in alphabet:
         sections.append(get_stylebook_section(letter))
@@ -86,7 +83,6 @@ def staff():
     
     editors = []
     for row in get_editors(): editors.extend(row)
-    print(editors)
     
     html = render_template('staff.html', editors = editors)
     response = make_response(html)
