@@ -75,7 +75,7 @@ def get_stylebook_section(letter: str) -> list:
 def term_search(keyword: str) -> list:
 
     query = (select(Entry.term, Entry.definition)
-             .where(Entry.term.like(f"%{keyword}%"))
+             .where(Entry.term.contains(keyword))
              .order_by(collate(Entry.term, 'NOCASE')))
 
     return execute_query(query)
@@ -85,7 +85,7 @@ def term_search(keyword: str) -> list:
 def definition_search(keyword: str) -> list:
 
     query = (select(Entry.term, Entry.definition)
-             .where(Entry.definition.like(f"%{keyword}%"))
+             .where(Entry.definition.contains(keyword))
              .order_by(collate(Entry.term, 'NOCASE')))
 
     return execute_query(query)
@@ -95,7 +95,7 @@ def definition_search(keyword: str) -> list:
 def keyword_search(keyword: str) -> list:
 
     query = (select(Entry.term, Entry.definition)
-             .where(or_(Entry.term.like(f"%{keyword}%"), Entry.definition.like(f"%{keyword}%")))
+             .where(or_(Entry.term.contains(keyword), Entry.definition.contains(keyword)))
              .order_by(collate(Entry.term, 'NOCASE')))
 
     return execute_query(query)
