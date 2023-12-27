@@ -3,7 +3,7 @@
 from flask import Flask, request, make_response, render_template
 from database import get_stylebook_section, term_search, definition_search, keyword_search, get_editors
 from string import ascii_uppercase
-from helper import standardize, highlight, reroute
+from helper import standardize, highlight, reroute, clean_results
 
 #-----------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ def index():
 @app.route('/search', methods=['GET'])
 def search():
 
-    keyword = request.args.get('q')
+    keyword = request.args.get('q').lower()
     searchtype = request.args.get('t')
     full = int(request.args.get('f'))
 
@@ -42,15 +42,17 @@ def search():
     
     elif (searchtype == "entry"):
         results = definition_search(keyword)
-        results = highlight(results, keyword)
     
     else:
         results = keyword_search(keyword)
-        results = highlight(results, keyword)
 
     # remove results found in HTML tags (and non-full words if full == 1)
-        
-    # results = clean_results(results, full)
+
+    results = clean_results(results, keyword, searchtype, full)
+
+    # highlight results
+
+    if (searchtype != "term"): results = highlight(results, keyword)
 
     # reroute links to the stylebook page
 

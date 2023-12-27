@@ -7,7 +7,8 @@ import re
 #-----------------------------------------------------------------------
 
 def standardize(string: str) -> str:
-    """convert straight quotes to curly ones"""
+    """convert straight quotes to curly ones. Found on Stack Overflow."""
+
     string = re.sub(r'\b"',r'”',string)   # closing double on word    
     string = re.sub(r'"\b',r'“',string)   # opening double on word
     string = re.sub(r'\b\'',r'’',string)  # closing single on word
@@ -18,9 +19,7 @@ def standardize(string: str) -> str:
 
     string = re.sub(r'\S\'\S',r'’',string)   # apostrophe can be virtually anywhere
 
-    # FIXME: what about single and double quotes not next to word or punctuation? Pairs?
-
-    return(string)
+    return string
 
 #-----------------------------------------------------------------------
 
@@ -41,7 +40,7 @@ def highlight(results: list, keyword: str) -> list:
         while (i >= 0):
 
             # make sure matching string is not within an HTML tag
-            if (i > 0 and ((entry[i:].find('>') < entry[i:].find('<')) or entry[i:].find('<') == -1)):
+            if within_html_tag(entry, i):
                 new_str += entry[:i+len(keyword)]
             
             # otherwise, add span tags around the matching string and add the matching string back with its original case
@@ -71,3 +70,52 @@ def reroute(results: list) -> list:
         results[k][1] = results[k][1].replace('#', 'stylebook#')
 
     return results
+
+#-----------------------------------------------------------------------
+
+def clean_results(results: list, keyword: str, searchtype: str, full: bool):
+    """
+    * Remove results where the keyword was only found in an HTML tag
+    * Remove results that don't fully match the keyword when `full` is toggled"""
+
+    # check each row
+
+    k = 0
+    while (k < len(results)):
+
+        if searchtype == "term": string = results[k][0].lower()
+        if searchtype == "entry": string = results[k][1].lower()
+        if searchtype == "keyword": string = results[k][0].lower() + "||" + results[k][1].lower()
+
+        # check if the search term is solely a tag; if so remove it
+        if re.search(rf"{keyword}([^>]|$)", string) is None:
+            results.pop(k)
+
+        # check if the search term is solely a link; if so remove it
+        elif re.search(rf"([^#<]|^){keyword}", string) is None:
+            results.pop(k)
+
+        # if searching for full terms, remove non-full terms
+        elif full and re.search(rf"([^\w#<]|^){keyword}([^\w>]|$)", string) is None:
+            results.pop(k)
+
+        # if not removed, continue through results
+        else: 
+            k += 1
+
+    return results
+
+#-----------------------------------------------------------------------
+
+def within_html_tag(string: str, index: int) -> bool:
+    """check if current location in string is within an HTML tag"""
+
+    if (index < 0): return False
+
+    start = string[index:].find('<')
+    end = string[index:].find('>')
+
+    if (end == -1): return False        # no more end tags to even be inside
+    if (start == -1): return True       # no more start tags but an end tag remains
+    if (start < end): return False      # both tags remain but a start comes before an end
+    return True                         # next end tag comes before next start tag
