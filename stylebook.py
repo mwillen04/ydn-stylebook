@@ -31,7 +31,7 @@ def index():
 
 @app.route('/search', methods=['GET'])
 def search():
-    """Search results. Usually displayed on homepage; can be rendered separately.
+    """Search results. Usually displayed on homepage but can be rendered separately.
 
     Returns:
         Response: HTML page rendered from the search template
@@ -120,5 +120,19 @@ def staff():
         editors.extend(row)
 
     html = render_template('staff.html', editors = editors)
+    response = make_response(html)
+    return response
+
+#-----------------------------------------------------------------------
+
+@app.route('/edits', methods=['GET'])
+def edits():
+    """Under Construction. Will host stylebook editing and marking of potential edits.
+    
+    Returns:
+        Response: HTML page rendered from the edits template
+    """
+
+    html = render_template('edits.html')
     response = make_response(html)
     return response
