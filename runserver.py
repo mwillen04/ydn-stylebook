@@ -9,7 +9,11 @@ from stylebook import app
 
 
 def main(args=None):
-    """main function. Calls parse_args and runs the Flask server."""
+    """main function. Gets the port and runs the Flask server on it.
+    
+    Args:
+        `args`: command-line arguments
+    """
 
     port = parse_args(args)
 
@@ -21,10 +25,15 @@ def main(args=None):
 
 #-----------------------------------------------------------------------
 
-def parse_args(args):
+def parse_args(args) -> int:
+    """Sets up parsing for command line arguments and parses them.
+    
+    Args:
+        `args`: command-line arguments -- should just be `port`
+
+    Returns:
+        int: address on which the Flask application should run
     """
-    * Sets up parsing for command line arguments
-    * Reads in command line arguments and returns port"""
 
     parser = argparse.ArgumentParser(description="Stylebook for the Yale Daily News.")
     parser.add_argument("port", help="the port at which the server should listen", type=int)

@@ -8,12 +8,12 @@ This website is designed to host the copy stylebook of the Yale Daily News. The 
 * Restructured pages, shifting from pure HTML to Flask + Jinja
 * Implemented search bar with specific search varieties
 * Replaced SQLite queries with SQLAlchemy
+* Improved code documentation with better docstrings and comments
 
 ## Next Steps
 
 * Add remaining old HTML pages to routing and templates
 * Update the content of the stylebook itself
-* Add docstrings where they're currently missing
 
 ## Longer-Term Steps
 

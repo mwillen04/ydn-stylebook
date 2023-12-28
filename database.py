@@ -2,13 +2,13 @@
 
 Author: Michael Willen"""
 
+import sys
+from sys import stderr
 from sqlalchemy import Column, Integer, String
 from sqlalchemy import create_engine, select, collate, or_, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker
-from sys import stderr
-import sys
 
 #-----------------------------------------------------------------------
 
@@ -21,12 +21,14 @@ Session = sessionmaker(bind=Engine)
 #-----------------------------------------------------------------------
 
 class Entry (Base):
+    """Individual entry within the stylebook."""
 
     __tablename__ = 'dictionary'
     term =          Column('term', String, primary_key=True)
     definition =    Column('definition', String, nullable=False)
 
 class Editor (Base):
+    """Data for an individual Copy desk editor."""
 
     __tablename__ = 'editors'
     netid =         Column('netID', String, primary_key=True)
@@ -37,11 +39,14 @@ class Editor (Base):
 #-----------------------------------------------------------------------
 
 def execute_query(query) -> list:
-    """
-    Params:
-    * `query`: SQL query to execute
+    """Executes provided query and returns resulting table
 
-    Executes query provided in `query` and returns resulting table"""
+    Args:
+        `query`: SQL query to execute
+
+    Returns:
+        list: results from querying the database
+    """
 
     try:
         with Session() as session:
@@ -54,6 +59,11 @@ def execute_query(query) -> list:
 #-----------------------------------------------------------------------
 
 def get_stylebook() -> list:
+    """Gets all current stylebook entries.
+
+    Returns:
+        list: all entries in the stylebook
+    """
 
     query = select(Entry.term, Entry.definition).order_by(collate(Entry.term, 'NOCASE'))
     return execute_query(query)
@@ -61,7 +71,16 @@ def get_stylebook() -> list:
 #-----------------------------------------------------------------------
 
 def get_stylebook_section(letter: str) -> list:
+    """Get a specific section of the stylebook by its starting letter.
 
+    Args:
+        `letter` (str): starting letter to search for
+
+    Returns:
+        list: all entries in the stylebook that start with `letter`
+    """
+
+    # include terms that start with a quote (“) or dash (-) but otherwise start with that letter
     args = [f"{letter}%", f"-{letter}%", f"“{letter}%"]
 
     query = (select(Entry.term, Entry.definition)
@@ -73,6 +92,14 @@ def get_stylebook_section(letter: str) -> list:
 #-----------------------------------------------------------------------
 
 def term_search(keyword: str) -> list:
+    """Search for terms in the stylebook that contain a given keyword.
+
+    Args:
+        `keyword` (str): keyword to search for
+
+    Returns:
+        list: all entries in the stylebook that contain the keyword in their term
+    """
 
     query = (select(Entry.term, Entry.definition)
              .where(Entry.term.contains(keyword))
@@ -83,6 +110,14 @@ def term_search(keyword: str) -> list:
 #-----------------------------------------------------------------------
 
 def definition_search(keyword: str) -> list:
+    """Search for definitions in the stylebook that contain a given keyword.
+
+    Args:
+        `keyword` (str): keyword to search for
+
+    Returns:
+        list: all entries in the stylebook that contain the keyword in their definition
+    """
 
     query = (select(Entry.term, Entry.definition)
              .where(Entry.definition.contains(keyword))
@@ -93,6 +128,14 @@ def definition_search(keyword: str) -> list:
 #-----------------------------------------------------------------------
 
 def keyword_search(keyword: str) -> list:
+    """Search for terms and definitons in the stylebook that contain a given keyword.
+
+    Args:
+        `keyword` (str): keyword to search for
+
+    Returns:
+        list: all entries in the stylebook that contain the keyword in any part of the entry
+    """
 
     query = (select(Entry.term, Entry.definition)
              .where(or_(Entry.term.contains(keyword), Entry.definition.contains(keyword)))
@@ -103,8 +146,13 @@ def keyword_search(keyword: str) -> list:
 #-----------------------------------------------------------------------
 
 def get_editors() -> list:
+    """Gets the names of all current Copy desk editors.
+
+    Returns:
+        list: names of all Copy desk editors, sorted by year, first name, then last name
+    """
 
     query = (select((Editor.first_name + " " + Editor.last_name).label("name"))
             .order_by(Editor.year, collate(text('name'), 'NOCASE')))
-    
+
     return execute_query(query)
