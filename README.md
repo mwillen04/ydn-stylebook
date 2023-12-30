@@ -9,16 +9,16 @@ This website is designed to host the copy stylebook of the Yale Daily News. The 
 * Implemented search bar with specific search varieties
 * Replaced SQLite queries with SQLAlchemy
 * Improved code documentation with better docstrings and comments
+* Largely completed a major, full revision of the stylebook content
 
 ## Next Steps
 
 * Add remaining old HTML pages to routing and templates
-* Update the content of the stylebook itself
+* Switch database to use PostgreSQL
+* Trade out current HTML templates for React pages
 
 ## Longer-Term Steps
 
-* Switch database to use PostgreSQL
-* Trade out current HTML templates for React pages
 * CAS Integration => Login, Profile, and Admin features
 * On-site editing of the stylebook => both direct revision and a suggestion list
 * Option to export stylebook data
