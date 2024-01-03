@@ -3,7 +3,7 @@
 Author: Michael Willen"""
 
 from string import ascii_uppercase
-from flask import Flask, request, make_response, render_template
+from flask import Flask, request, make_response, render_template, jsonify
 from database import get_stylebook_section, get_editors
 from database import term_search, definition_search, keyword_search
 from helper import standardize, highlight, reroute, clean_results
@@ -23,9 +23,7 @@ def index():
         Response: HTML page rendered from the index template
     """
 
-    html = render_template('index.html')
-    response = make_response(html)
-    return response
+    return
 
 #-----------------------------------------------------------------------
 
@@ -46,7 +44,7 @@ def search():
     # if no word searched, display nothing
 
     if keyword == '':
-        return make_response('')
+        return {"results" : []}
 
     # account for differing quotation marks
 
@@ -76,10 +74,7 @@ def search():
 
     results = reroute(results)
 
-    html = render_template('components/search.html', results=results)
-    response = make_response(html)
-
-    return response
+    return {"results" : results}
 
 #-----------------------------------------------------------------------
 
@@ -99,9 +94,7 @@ def stylebook():
     for letter in alphabet:
         sections.append(get_stylebook_section(letter))
 
-    html = render_template('stylebook.html', dictionary = dict(zip(alphabet, sections)))
-    response = make_response(html)
-    return response
+    return { "dictionary" : dict(zip(alphabet, sections)) }
 
 #-----------------------------------------------------------------------
 
@@ -119,9 +112,7 @@ def staff():
     for row in get_editors():
         editors.extend(row)
 
-    html = render_template('staff.html', editors = editors)
-    response = make_response(html)
-    return response
+    return {"editors" : editors}
 
 #-----------------------------------------------------------------------
 
@@ -133,6 +124,9 @@ def edits():
         Response: HTML page rendered from the edits template
     """
 
-    html = render_template('edits.html')
-    response = make_response(html)
-    return response
+    return
+
+#-----------------------------------------------------------------------
+
+if __name__ == '__main__':
+    app.run(debug=True)

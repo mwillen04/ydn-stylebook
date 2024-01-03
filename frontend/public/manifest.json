@@ -1,0 +1,30 @@
+{
+  "short_name": "YDN Stylebook",
+  "name": "Stylebook for the Yale Daily News",
+  "icons": [
+    {
+      "src": "https://yaledailynews.com/wp-content/themes/ydnlabs/css/images/favicon.ico/favicon-16x16.png",
+      "type":"image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "https://yaledailynews.com/wp-content/themes/ydnlabs/css/images/favicon.ico/favicon-32x32.png",
+      "type":"image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "https://yaledailynews.com/wp-content/themes/ydnlabs/css/images/favicon.ico/favicon-96x96.png",
+      "type":"image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "https://yaledailynews.com/wp-content/themes/ydnlabs/css/images/favicon.ico/android-icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

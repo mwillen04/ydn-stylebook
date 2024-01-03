@@ -50,7 +50,9 @@ def execute_query(query) -> list:
 
     try:
         with Session() as session:
-            return session.execute(query).fetchall()
+            results = session.execute(query).fetchall()
+            results = [tuple(row) for row in results]
+            return results
 
     except SQLAlchemyError as ex:
         print(ex, file=stderr)
