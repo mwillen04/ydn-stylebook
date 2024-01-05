@@ -56,7 +56,7 @@ def search():
     except TypeError:
         full = 0
 
-    if full > 1:
+    if full > 1 or full < 0:
         full = 0
 
     # account for differing quotation marks
