@@ -1,11 +1,5 @@
-html::-webkit-scrollbar {
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
 html {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  height: 101%;
 }
 
 /*
@@ -26,6 +20,10 @@ body {
     font-family: 'Times New Roman', Times, serif;
 }
 
+#root, .App {
+    height: 100%;
+}
+
 header {
     background-color: #111111;
     padding-top: auto;
@@ -40,21 +38,19 @@ main {
     padding-right: 50px;
     flex: 1;
     box-sizing: border-box;
+    min-height: calc(100vh - 100px);
     width: 100%;
 }
 
 footer {
     background-color: #181818;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 50px;
     font-size: 50%;
     box-sizing: border-box;
     text-align: right;
     bottom: 0;
     width: 100%;
-    height: auto;
+    height: 50px;
 }
 
 nav {
