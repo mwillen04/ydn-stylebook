@@ -21,7 +21,7 @@ function Searchbar() {
     }
 
     return (
-        <form className="search" action="search" method="get" target="_blank">
+        <form className="search" onSubmit={e => {e.preventDefault();}}>
 
             <select name="t" id="searchtype" value={query.t} onChange={handleChange}>
                 <option className="dropdown" value="keyword">Keyword</option>
