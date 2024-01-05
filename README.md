@@ -30,7 +30,6 @@ npm start
 ## Next Steps
 
 * Add remaining old HTML pages to routing and templates
-* Fix remaining CSS errors caused by switching to React
 * Shift database away from SQLite
 
 ## Longer-Term Steps

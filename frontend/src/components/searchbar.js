@@ -17,7 +17,7 @@ function Searchbar() {
         }
         
         console.log(name, " : ", value);
-        setQuery(values => ({...values, [name]: value}))
+        setQuery(values => ({...values, [name]: value}));
     }
 
     return (
