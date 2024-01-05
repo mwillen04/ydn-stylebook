@@ -15,14 +15,14 @@ body {
     color: lightgray;
     margin: 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
     font-family: 'Times New Roman', Times, serif;
 }
 
 #root, .App {
     height: 100%;
 }
+
+/* Base Page Layout */
 
 header {
     background-color: #111111;
@@ -52,6 +52,8 @@ footer {
     width: 100%;
     height: 50px;
 }
+
+/* Navbar */
 
 nav {
     text-align: right;
@@ -90,6 +92,8 @@ nav {
     text-underline-offset: 20px;
 }
 
+/* Headers */
+
 h1 {
     text-align: center;
     padding: 0px;
@@ -102,6 +106,8 @@ h2 {
     margin-bottom: 0px;
     color: #BBBBBB;
 }
+
+/* Top 10 Rules Page [OUTDATED] */
 
 .biglist {
     font-weight: bold;
@@ -131,14 +137,7 @@ mark {
     background-color: transparent;
 }
 
-a {
-    color: #F5D275;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
+/* Copy Staff Page */
 
 .profile {
     border: 4px solid lightgray;
@@ -164,6 +163,8 @@ figure {
     margin: 20px;
     text-align: center;
 }
+
+/* Stylebook */
 
 .letters {
     color: lightgray;
@@ -196,9 +197,24 @@ td.term {
     width: 200px;
 }
 
+
+a {
+    color: #F5D275;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Searchbar */
+
 .search {
     text-align: center;
     margin: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .search input[type=text] {
@@ -206,11 +222,11 @@ td.term {
     border: none;
     font-size: 17px;
     font-family: 'Times New Roman', Times, serif;
+    margin: 0 1px;
 }
 
 .search select {
     padding: 13px 16px 13px 16px;
-    margin: 0px;
     background: #ddd;
     font-size: 17px;
     font-family: 'Times New Roman', Times, serif;
@@ -219,7 +235,7 @@ td.term {
     border-right: 16px solid transparent;
     cursor: pointer;   
   }
-  
+
 .search select:hover, .search .check:hover {
     background: #ccc;
   }
@@ -233,12 +249,6 @@ td.term {
     background-color: lightgray;
     border-radius: 0px;
     margin-top: 0px;
-}
-
-.highlight {
-    background-color: #F5D275;
-    border-radius: 5px;
-    color: black;
 }
 
 .search input[type=checkbox] {
@@ -268,5 +278,13 @@ td.term {
 }
 
 .search .check input[type=checkbox]:checked + label {
+    color: black;
+}
+
+/* Search Results */
+
+.highlight {
+    background-color: #F5D275;
+    border-radius: 5px;
     color: black;
 }
