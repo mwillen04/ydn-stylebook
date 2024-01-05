@@ -39,12 +39,25 @@ def search():
 
     keyword = request.args.get('q').lower() # word to search for
     searchtype = request.args.get('t')      # value to be searched (term, entry, both)
-    full = int(request.args.get('f'))       # whether to only search for full words
+    full = request.args.get('f')            # whether to only search for full words
 
     # if no word searched, display nothing
 
     if keyword == '':
         return {"results" : []}
+
+    # Ensure default search settings exist and avoid faulty searches
+    
+    if searchtype != "keyword" and searchtype != "term" and searchtype != "entry":
+        searchtype = "keyword"
+
+    try:
+        full = int(full)
+    except TypeError:
+        full = 0
+
+    if full > 1:
+        full = 0
 
     # account for differing quotation marks
 
