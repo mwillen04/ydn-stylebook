@@ -4,6 +4,7 @@ Author: Michael Willen"""
 
 import sys
 from sys import stderr
+from random import randrange
 from sqlalchemy import Column, Integer, String
 from sqlalchemy import create_engine, select, collate, or_, text
 from sqlalchemy.ext.declarative import declarative_base
@@ -142,6 +143,20 @@ def keyword_search(keyword: str) -> list:
     query = (select(Entry.term, Entry.definition)
              .where(or_(Entry.term.contains(keyword), Entry.definition.contains(keyword)))
              .order_by(collate(Entry.term, 'NOCASE')))
+
+    return execute_query(query)
+
+#-----------------------------------------------------------------------
+
+def get_random_entry() -> list:
+    """Get a single entry from the stylebook, chosen randomly.
+    
+    Returns:
+        list: a random entry from the stylebook
+    """
+
+    rowCount = len(get_stylebook())
+    query = select(Entry.term, Entry.definition).offset(randrange(rowCount)).limit(1)
 
     return execute_query(query)
 

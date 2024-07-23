@@ -3,8 +3,8 @@
 Author: Michael Willen"""
 
 from string import ascii_uppercase
-from flask import Flask, request, make_response, render_template, jsonify
-from database import get_stylebook_section, get_editors
+from flask import Flask, request
+from database import get_stylebook_section, get_editors, get_random_entry
 from database import term_search, definition_search, keyword_search
 from helper import standardize, highlight, reroute, clean_results
 
@@ -88,6 +88,22 @@ def search():
     results = reroute(results)
 
     return {"results" : results}
+
+#-----------------------------------------------------------------------
+
+@app.route('/random', methods=['GET'])
+def random_entry():
+    """Gets a random entry to display.
+    
+    Returns:
+        Response: a random entry from the stylebook
+    """
+
+    entry = get_random_entry()
+    entry = reroute(entry)[0]
+    print(entry)
+
+    return {"entry" : entry}
 
 #-----------------------------------------------------------------------
 
