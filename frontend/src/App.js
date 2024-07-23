@@ -3,7 +3,7 @@ import Layout from "./pages/layout";
 import Home from './pages/home';
 import Stylebook from "./pages/stylebook";
 import Edits from "./pages/edits";
-import Staff from "./pages/staff";
+import About from "./pages/about";
 import NoPage from "./pages/nopage";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
             {/* <Route path="top10" element={<Top10 />} /> */}
             <Route path="stylebook" element={<Stylebook />} />
             <Route path="edits" element={<Edits />} />
-            <Route path="staff" element={<Staff />} />
+            <Route path="about" element={<About />} />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>

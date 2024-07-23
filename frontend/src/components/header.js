@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from '../assets/images/nameplate_recolor2.png';
+import logo from '../assets/images/ydn_logo.png';
 
 function Header() {
 
@@ -14,7 +14,9 @@ function Header() {
 
     return (
         <header id="top">
-            <a href="https://yaledailynews.com/" target="_blank" rel="noreferrer"><img src={logo} alt="The Yale Daily News" className="logo" /></a>
+            <a href="https://yaledailynews.com/" style={{display: "contents"}} target="_blank" rel="noreferrer"><img src={logo} alt="The Yale Daily News" className="logo" /></a>
+
+            <div className="title"><Link to="/" className="pages">Copy Stylebook</Link></div>
 
             <nav>
                 <Link to="/" className={"pages" + isCurrent("")}>Home</Link>
@@ -22,7 +24,7 @@ function Header() {
                 <Link to="/stylebook" className={"pages" + isCurrent("stylebook")}>Stylebook</Link>
                 <Link to="/edits" className={"pages" + isCurrent("edits")}>Edits</Link>
                 <a href="https://www.apstylebook.com/" className="pages" target="_blank" rel="noreferrer">AP Style</a>
-                <Link to="/staff" className={"pages" + isCurrent("staff")}>Copy Staff</Link>
+                <Link to="/about" className={"pages" + isCurrent("about")}>About</Link>
             </nav>
         </header>
     )

@@ -111,8 +111,8 @@ def stylebook():
 
 #-----------------------------------------------------------------------
 
-@app.route('/staff', methods=['GET'])
-def staff():
+@app.route('/about', methods=['GET'])
+def about():
     """Retrieves and displays current Copy Desk editors.
 
     Returns:

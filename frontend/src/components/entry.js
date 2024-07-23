@@ -6,7 +6,7 @@ function Entry({entry}) {
         <table className="entry" id={entry[0]}>
             <tbody>
                 <tr>
-                    <td className="term"><b>{entry[0]}</b></td>
+                    <td className="term">{entry[0]}</td>
                     <td>|</td>
                     <td className="definition">
                         {parse(entry[1])}

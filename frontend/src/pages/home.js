@@ -9,7 +9,7 @@ function Home() {
         <main>
 
             <br />
-            <h1>STYLEBOOK OF THE YALE DAILY NEWS</h1>
+            <h1>Welcome to the <b>YDN Stylebook!</b></h1>
 
             <QueryProvider>
                 <Searchbar />

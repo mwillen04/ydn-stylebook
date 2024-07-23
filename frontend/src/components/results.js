@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { QueryContext } from "../contexts/QueryContext";
+import DefaultHome from "./home_default";
 import Entry from "./entry";
 
 function Results() {
@@ -23,6 +24,13 @@ function Results() {
           })
           .catch(error => console.error('Error:', error));
     }, [query]);
+
+    // return base page if results is empty
+    if (results.length === 0) {
+        return (
+            <DefaultHome />
+        )
+    };
 
     // return formatted results
     return (
