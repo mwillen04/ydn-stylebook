@@ -150,11 +150,7 @@ def about():
         Response: HTML page rendered from the staff template
     """
 
-    editors = []
-
-    # results come as list of 1-item tuples; flattens this 2D list/tuple
-    for row in get_editors():
-        editors.extend(row)
+    editors = get_editors()
 
     return {"editors" : editors}
 

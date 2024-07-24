@@ -169,7 +169,7 @@ def get_editors() -> list:
         list: names of all Copy desk editors, sorted by year, first name, then last name
     """
 
-    query = (select((Editor.first_name + " " + Editor.last_name).label("name"))
+    query = (select((Editor.first_name + " " + Editor.last_name).label("name"), Editor.year)
             .order_by(Editor.year, collate(text('name'), 'NOCASE')))
 
     return execute_query(query)

@@ -6,7 +6,7 @@ function Profile({editor}) {
     return (
         <figure>
             <img className="profile" src={photo} alt="Editor" />
-            <figcaption>{editor}</figcaption>
+            <figcaption><b>{editor[0]}</b><br />{editor[1]}</figcaption>
         </figure>
     )
 }
