@@ -87,6 +87,10 @@ def search():
 
     results = reroute(results)
 
+    if len(results) == 0:
+        results = "No results."
+    
+    print(results)
     return {"results" : results}
 
 #-----------------------------------------------------------------------
@@ -101,7 +105,6 @@ def random_entry():
 
     entry = get_random_entry()
     entry = reroute(entry)[0]
-    print(entry)
 
     return {"entry" : entry}
 

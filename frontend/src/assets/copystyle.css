@@ -325,3 +325,11 @@ a:hover {
 #home_default {
     margin: 0px 150px;
 }
+
+/* Q&A */
+
+.question {
+    border: 1px solid black;
+    border-radius: 5px;
+    filter: drop-shadow(1px 1px);
+}

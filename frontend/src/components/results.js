@@ -32,6 +32,12 @@ function Results() {
         )
     };
 
+    if (results === "No results.") {
+        return (
+            <p style={{margin: "0px 150px"}}>No results.</p>
+        )
+    }
+
     // return formatted results
     return (
         <div id="results">

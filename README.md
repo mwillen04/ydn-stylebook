@@ -26,6 +26,8 @@ npm start
 * Replaced SQLite queries with SQLAlchemy
 * Improved code documentation with better docstrings and comments
 * Largely completed a major, full revision of the stylebook content
+* Completely remodeled website theme
+* Added content to homepage and about page, added Q&A page
 
 ## Next Steps
 
