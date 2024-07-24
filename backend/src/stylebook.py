@@ -127,6 +127,18 @@ def stylebook():
 
 #-----------------------------------------------------------------------
 
+@app.route('/ask', methods=['GET'])
+def ask():
+    """Under Construction. Will host Q&A for writers to ask copy style questions.
+    
+    Returns:
+        Response: Data for Q&A page
+    """
+
+    return
+
+#-----------------------------------------------------------------------
+
 @app.route('/about', methods=['GET'])
 def about():
     """Retrieves and displays current Copy Desk editors.

@@ -1,12 +1,12 @@
 import React from "react";
 
-function Edits() {
+function Ask() {
     return (
         <main>
             <br />
-            <h1>Edit Stylebook</h1>
+            <h1>Ask the Editors!</h1>
         </main>
     )
 }
 
-export default Edits;
+export default Ask;

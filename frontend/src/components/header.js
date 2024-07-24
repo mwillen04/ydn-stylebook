@@ -22,7 +22,7 @@ function Header() {
                 <Link to="/" className={"pages" + isCurrent("")}>Home</Link>
                 <Link to="/top10" className={"pages" + isCurrent("top10")}>Top 10 Rules</Link>
                 <Link to="/stylebook" className={"pages" + isCurrent("stylebook")}>Stylebook</Link>
-                <Link to="/edits" className={"pages" + isCurrent("edits")}>Edits</Link>
+                <Link to="/ask" className={"pages" + isCurrent("ask")}>Q&A</Link>
                 <a href="https://www.apstylebook.com/" className="pages" target="_blank" rel="noreferrer">AP Style</a>
                 <Link to="/about" className={"pages" + isCurrent("about")}>About</Link>
             </nav>
