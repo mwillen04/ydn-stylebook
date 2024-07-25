@@ -135,23 +135,19 @@ h2 {
     color: black;
 }
 
-/* Top 10 Rules Page [OUTDATED] */
+/* Top 10 Rules Page */
 
-.biglist {
+ol.top10 {
     font-weight: bold;
-    list-style-type: lower-roman;
-    font-size: 150%;
+    font-size: 125%;
 }
 
-.sublist {
+ol.top10 ul {
     font-weight: normal;
-    list-style-type: lower-alpha;
-    font-size: 75%;
+    font-size: 80%;
 }
 
-.subsublist {
-    font-weight: normal;
-    list-style-type: lower-roman;
+ol.top10 ul ul {
     font-size: 100%;
 }
 

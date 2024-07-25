@@ -4,7 +4,7 @@ Author: Michael Willen"""
 
 from string import ascii_uppercase
 from flask import Flask, request
-from database import get_stylebook_section, get_editors, get_random_entry
+from database import get_stylebook_section, get_editors, get_random_entry, get_top10
 from database import term_search, definition_search, keyword_search
 from helper import standardize, highlight, reroute, clean_results
 
@@ -107,6 +107,22 @@ def random_entry():
     entry = reroute(entry)[0]
 
     return {"entry" : entry}
+
+#-----------------------------------------------------------------------
+
+@app.route('/top10', methods=['GET'])
+def top10():
+    """Retrieves and displays the top 10 rules.
+
+    Returns:
+        Response: a list of the top 10 rules
+    """
+
+    top10 = get_top10()
+
+    rules = [list(ele) for ele in top10]
+
+    return {"rules" : rules}
 
 #-----------------------------------------------------------------------
 

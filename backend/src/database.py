@@ -37,6 +37,14 @@ class Editor (Base):
     first_name =    Column('first_name', String, nullable=False)
     year =          Column('year', Integer, nullable=False)
 
+class Top10 (Base):
+    """Data for the top 10 rules."""
+
+    __tablename__ = 'top10rules'
+    number =        Column('number', Integer, primary_key=True)
+    term =          Column('term', String, nullable=False)
+    definition =    Column('definition', String, nullable=False)
+
 #-----------------------------------------------------------------------
 
 def execute_query(query) -> list:
@@ -158,6 +166,18 @@ def get_random_entry() -> list:
     rowCount = len(get_stylebook())
     query = select(Entry.term, Entry.definition).offset(randrange(rowCount)).limit(1)
 
+    return execute_query(query)
+
+#-----------------------------------------------------------------------
+
+def get_top10() -> list:
+    """Gets the top 10 rules
+    
+    Returns:
+        list: the top 10 rules, sorted by their number
+    """
+
+    query = select(Top10.term, Top10.definition).order_by(Top10.number)
     return execute_query(query)
 
 #-----------------------------------------------------------------------

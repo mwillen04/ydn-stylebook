@@ -2,6 +2,7 @@ import React from "react";
 import Entry from "./entry";
 
 function Section({section}) {
+
     return (
         <section id={section[0]}>
             <br /><hr />
